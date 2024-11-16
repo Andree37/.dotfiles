@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 
 if [[ $# -eq 1 ]]; then
-    selected=$1
+    selected_package=$1
 else
-    selected=$(find ~/github -mindepth 1 -maxdepth 2 -type d | fzf)
+    # Use find to list only PACKAGE directories under /home/potato/workplace/PROJECT/src
+    selected_package=$(find /home/potato/workplace -mindepth 4 -maxdepth 4 -type d | fzf)
 fi
 
-if [[ -z $selected ]]; then
+if [[ -z $selected_package ]]; then
     exit 0
 fi
 
-# Navigate to the selected directory
-cd "$selected" || exit 1
+# Navigate to the selected PACKAGE directory
+cd "$selected_package" || exit 1
 
-# Restart the shell
+# Restart the shell as a login shell to apply ~/.zprofile
 exec $SHELL -l
