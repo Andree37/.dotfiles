@@ -1,34 +1,26 @@
 #!/usr/bin/env bash
 
-# Base directory to search
 base_dir="$HOME/github"
 
-# Find all PACKAGE directories and format as PACKAGE(PROJECT) for fzf
 selected=$(find "$base_dir" -mindepth 2 -maxdepth 3 -type d -path "*/src/*" \
     | awk -F '/' '{print $(NF)"("$(NF-2)")"}' \
     | sort -u \
     | fzf)
 
-# Exit if no selection is made
 if [[ -z $selected ]]; then
     exit 0
 fi
 
-# Extract PACKAGE and PROJECT from the selected entry
 package=$(echo "$selected" | sed -E 's|\((.*)\)||' | xargs)    # Extract PACKAGE before (PROJECT)
 project=$(echo "$selected" | sed -E 's|.*\((.*)\)|\1|' | xargs) # Extract PROJECT inside parentheses
 
-# Reconstruct the full PACKAGE path
 package_path="$base_dir/$project/src/$package"
 
-# Ensure the PACKAGE directory exists
 if [[ ! -d $package_path ]]; then
     echo "Error: Package directory not found: $package_path"
     exit 1
 fi
 
-# Navigate to the PACKAGE directory
 cd "$package_path" || exit 1
 
-# Restart the shell as a login shell to apply ~/.zprofile
 exec $SHELL -l
