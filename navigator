@@ -1,25 +1,23 @@
 #!/usr/bin/env bash
 
-if [[ $# -eq 1 ]]; then
-    selected=$1
-else
-    selected=$(find /home/potato/workplace -mindepth 4 -maxdepth 4 -type d -path "*/src/*" \
-        | awk -F '/src/' '{split($1, parts, "/"); print $2 "("parts[length(parts)]")"}' \
-        | sort -u \
-        | fzf)
-fi
+base_dir="$HOME/github"
+
+selected=$(find "$base_dir" -mindepth 2 -maxdepth 2 -type d \
+    | awk -F '/' '{print $NF "("$(NF-1)")"}' \
+    | sort -u \
+    | fzf)
 
 if [[ -z $selected ]]; then
     exit 0
 fi
 
-package=$(echo "$selected" | sed -E 's|\((.*)\)||' | xargs)
-project=$(echo "$selected" | grep -oP '(?<=\().*(?=\))')
+package=$(echo "$selected" | sed -E 's|\((.*)\)||' | xargs)    # Extract PACKAGE before (PROJECT)
+project=$(echo "$selected" | sed -E 's|.*\((.*)\)|\1|' | xargs) # Extract PROJECT inside parentheses
 
-package_path=$(find /home/potato/workplace -mindepth 4 -maxdepth 4 -type d -path "*/$project/src/$package" | head -n 1)
+package_path="$base_dir/$project/$package"
 
-if [[ -z $package_path ]]; then
-    echo "Error: Could not resolve the package path for the selected entry"
+if [[ ! -d $package_path ]]; then
+    echo "Error: Package directory not found: $package_path"
     exit 1
 fi
 
