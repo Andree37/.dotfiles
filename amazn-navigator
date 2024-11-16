@@ -2,8 +2,8 @@
 
 base_dir="$HOME/github"
 
-selected=$(find "$base_dir" -mindepth 2 -maxdepth 2 -type d \
-    | awk -F '/' '{print $NF "("$(NF-1)")"}' \
+selected=$(find "$base_dir" -mindepth 2 -maxdepth 3 -type d -path "*/src/*" \
+    | awk -F '/' '{print $(NF)"("$(NF-2)")"}' \
     | sort -u \
     | fzf)
 
@@ -14,7 +14,7 @@ fi
 package=$(echo "$selected" | sed -E 's|\((.*)\)||' | xargs)
 project=$(echo "$selected" | sed -E 's|.*\((.*)\)|\1|' | xargs)
 
-package_path="$base_dir/$project/$package"
+package_path="$base_dir/$project/src/$package"
 
 if [[ ! -d $package_path ]]; then
     echo "Error: Package directory not found: $package_path"
@@ -22,3 +22,5 @@ if [[ ! -d $package_path ]]; then
 fi
 
 cd "$package_path" || exit 1
+
+exec $SHELL -l
