@@ -40,10 +40,23 @@ navigator() {
 bindkey -s "^f" "navigator\n"
 ```
 
-
 4. Reload Your Zsh Configuration:
 ```bash
 source ~/.zshrc
+```
+
+5. (Optional) Change configuration:
+```bash
+vim ~/github/Andree37/.dotfiles/navigator
+
+# Change the BASE_DIR to your workspace directory
+BASE_DIR="$HOME/workplace"
+
+# Change the TMUX_SESSION to false if you don't want to use tmux
+TMUX_SESSION=false
+
+# Change the WORKSPACE_SRC_STRUCTURE to true if your directory structure is ~/workplace/WORKSPACE/src/PROJECT/files
+WORKSPACE_SRC_STRUCTURE=true
 ```
 
 ### Configuration
