@@ -3,7 +3,7 @@
 TMUX_SESSION=true
 WORKSPACE_SRC_STRUCTURE=false
 
-base_dir="$HOME/github"
+BASE_DIR="$HOME/github"
 
 if [[ $# -eq 1 ]]; then
     selected=$1
@@ -15,7 +15,7 @@ else
         find_depth=(-mindepth 2 -maxdepth 2 -type d)
         awk_field='{print $(NF)"("$(NF-1)")"}'
     fi
-    selected=$(find "$base_dir" "${find_depth[@]}" | awk -F '/' "$awk_field" | sort -u | fzf)
+    selected=$(find "$BASE_DIR" "${find_depth[@]}" | awk -F '/' "$awk_field" | sort -u | fzf)
 fi
 
 if [[ -z $selected ]]; then
@@ -27,9 +27,9 @@ package=$(echo "$selected" | sed -E 's|\((.*)\)||' | xargs)
 project=$(echo "$selected" | sed -E 's|.*\((.*)\)|\1|' | xargs)
 
 if [[ "$WORKSPACE_SRC_STRUCTURE" == true ]]; then
-    package_path="$base_dir/$project/src/$package"
+    package_path="$BASE_DIR/$project/src/$package"
 else
-    package_path="$base_dir/$project/$package"
+    package_path="$BASE_DIR/$project/$package"
 fi
 
 if [[ ! -d $package_path ]]; then

@@ -27,10 +27,19 @@ chmod +x ~/github/Andree37/.dotfiles/navigator
 ```
 
 3. Update Your Zsh Configuration: Add the following lines to your `~/.zshrc` file:
+> Note: remove `source` if you are using the tmux session management feature.
 ```bash
 export NAVIGATOR_PATH="~/github/Andree37/.dotfiles/navigator"
 bindkey -s '^f' "source $NAVIGATOR_PATH\n"
 ```
+or
+```bash
+navigator() {
+    source ~/github/Andree37/.dotfiles/navigator
+}
+bindkey -s "^f" "navigator\n"
+```
+
 
 4. Reload Your Zsh Configuration:
 ```bash
@@ -43,14 +52,14 @@ You can configure the script to match your workspace directory structure and des
 
 1. Workspace Directory:
 ```bash
-base_dir="$HOME/github"
+BASE_DIR="$HOME/github"
 ```
 
 2. Workspace Structure:
 - Set to true if your directory structure is ~/github/WORKSPACE/src/PROJECT/files.
 - Set to false if your directory structure is ~/github/WORKSPACE/PROJECT/files.
 ```bash
-workspace_src_structure=false
+WORKSPACE_SRC_STRUCTURE=false
 ```
 
 3. TMUX Session Management:
@@ -74,7 +83,7 @@ TMUX_SESSION=true
   - If you exit fzf without making a selection, the script will exit gracefully.
 
 - Error: Package directory not found:
-  - Ensure the `base_dir` and `workspace_src_structure` match your actual directory structure.
+  - Ensure the `BASE_DIR` and `WORKSPACE_SRC_STRUCTURE` match your actual directory structure.
 
 - Keybinding Issues:
   - Verify that `NAVIGATOR_PATH` is correctly set in your ~/.zshrc file.
