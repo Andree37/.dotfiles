@@ -32,7 +32,7 @@ chmod +x ~/github/Andree37/.dotfiles/navigator
 export NAVIGATOR_PATH="~/github/Andree37/.dotfiles/navigator"
 bindkey -s '^f' "source $NAVIGATOR_PATH\n"
 ```
-or
+or to have a cleaner output in your terminal:
 ```bash
 navigator() {
     source ~/github/Andree37/.dotfiles/navigator
