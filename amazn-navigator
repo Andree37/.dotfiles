@@ -21,6 +21,4 @@ if [[ ! -d $package_path ]]; then
     exit 1
 fi
 
-cd "$package_path" || exit 1
-
-exec $SHELL -l
+cd "$package_path" && clear || exit 1
