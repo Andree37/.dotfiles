@@ -22,7 +22,6 @@ if [[ -z $selected ]]; then
     return 0
 fi
 
-# Extract project and package names
 package=$(echo "$selected" | sed -E 's|\((.*)\)||' | xargs)
 project=$(echo "$selected" | sed -E 's|.*\((.*)\)|\1|' | xargs)
 
@@ -53,6 +52,5 @@ if [[ "$TMUX_SESSION" == true ]]; then
 
     tmux switch-client -t "$session_name"
 else
-    # CD functionality
     cd "$package_path" && clear || return 1
 fi
