@@ -7,8 +7,30 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+    "agent_servers": {},
+    "auto_update": false,
+    // likely want to change this to some other agent
+    "agent": {
+        "default_profile": "write",
+        "default_model": {
+            "provider": "copilot_chat",
+            "model": "claude-sonnet-4"
+        },
+        "always_allow_tool_actions": true,
+        "model_parameters": [],
+        "inline_assistant_model": {
+            "provider": "copilot_chat",
+            "model": "claude-sonnet-4"
+        }
+    },
+    "features": {
+        "edit_prediction_provider": "copilot"
+    },
+    "edit_predictions": {
+        "mode": "eager"
+    },
     "base_keymap": "JetBrains",
-    "theme": "Gruvbox Dark Soft",
+    "theme": "Gruvbox Dark Hard",
     "inlay_hints": {
         "enabled": true,
         "show_other_hints": true
@@ -17,13 +39,28 @@
     "tab_bar": {
         "show_nav_history_buttons": true
     },
-    "show_whitespaces": "all",
+    "show_whitespaces": "none",
+    "diagnostics": {
+        "button": true,
+        "include_warnings": true,
+        "lsp_pull_diagnostics": {
+            "enabled": true,
+            "debounce_ms": 50
+        },
+        "inline": {
+            "enabled": true,
+            "update_debounce_ms": 150,
+            "padding": 4,
+            "min_column": 0,
+            "max_severity": null
+        }
+    },
     "git": {
         "git_gutter": "tracked_files",
         "gutter_debounce": 500,
         "inline_blame": {
             "enabled": true,
-            "show_hover": true
+            "show_commit_summary": true
         }
     },
     "ui_font_family": "JetBrainsMono Nerd Font Mono",
@@ -39,11 +76,19 @@
     },
     "tab_size": 4,
     "scrollbar": {
-        "symbols_selections": true,
         "git_diff": true,
         "show": "always"
     },
     "languages": {
+        "Zig": {
+            "show_edit_predictions": false
+        },
+        "SQL": {
+            "formatter": "language_server"
+        },
+        "Markdown": {
+            "soft_wrap": "editor_width"
+        },
         "Python": {
             "format_on_save": "on",
             "formatter": {
@@ -54,6 +99,10 @@
                     ]
                 }
             }
+        },
+        "OCaml": {
+            "format_on_save": "on",
+            "tab_size": 2
         }
     }
 }

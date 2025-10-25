@@ -1,6 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+export LANG="en_US.UTF-8"
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -70,8 +72,11 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting fast-syntax-highlighting zsh-autosuggestions) 
-
+plugins=(git zsh-syntax-highlighting fast-syntax-highlighting zsh-autosuggestions zsh-navigator)
+export NAVIGATOR_KEYBIND_ENABLED=true
+export NAVIGATOR_STRUCTURE=workspace
+export NAVIGATOR_MODE=tmux
+export NAVIGATOR_WINDOW_NAMING=true
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -100,45 +105,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 eval "$(starship init zsh)"
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-export PATH="/opt/homebrew/opt/ruby@3.0/bin:$PATH"
-export PATH="$HOME/.gem/ruby/3.0.0/bin:$PATH"
 
-# pnpm
-export PNPM_HOME="/Users/andre/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
-export PATH="/opt/homebrew/opt/llvm@13/bin:$PATH"
-eval $(opam env)
+alias git='LANG=en_GB git'
 
-# make
-export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
-
-# akash stuff
-export AKASH_KEY_NAME=dev
-export AKASH_KEYRING_BACKEND=os
-export AKASH_ACCOUNT_ADDRESS="$(provider-services keys show $AKASH_KEY_NAME -a)"
-export AKASH_NET="https://raw.githubusercontent.com/akash-network/net/main/mainnet"
-export AKASH_VERSION="v0.3.2-rc7"
-export AKASH_CHAIN_ID="sandbox-01"
-export AKASH_NODE="https://rpc.sandbox-01.aksh.pw:443"
-export AKASH_GAS=auto
-export AKASH_GAS_ADJUSTMENT=1.25
-export AKASH_GAS_PRICES=0.025uakt
-export PATH="/usr/local/bin/provider-services:$PATH"
-export AKASH_SIGN_MODE=amino-json
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/andre/Documents/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/andre/Documents/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/andre/Documents/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/andre/Documents/google-cloud-sdk/completion.zsh.inc'; fi
-
-#aliases
-alias tmux-sessionizer="~/.config/tmux/tmux-sessionizer"
+alias lg="lazygit"
+alias tca="tmux -CC attach"
+alias zbr="zig build run"
