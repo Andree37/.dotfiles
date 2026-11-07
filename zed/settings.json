@@ -7,37 +7,104 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-    "agent_servers": {},
+    "cli_default_open_behavior": "new_window",
+    "project_panel": {
+        "dock": "left",
+    },
+    "outline_panel": {
+        "dock": "left",
+    },
+    "collaboration_panel": {
+        "dock": "left",
+    },
+    "git_panel": {
+        "dock": "left",
+    },
+    "agent_servers": {
+        "github-copilot-cli": {
+            "type": "registry",
+        },
+    },
     "auto_update": false,
-    // likely want to change this to some other agent
     "agent": {
+        "tool_permissions": {
+            "default": "allow",
+        },
+        "sidebar_side": "right",
+        "dock": "right",
+        "profiles": {
+            "incremental": {
+                "name": "Incremental",
+                "tools": {
+                    "create_directory": true,
+                    "diagnostics": true,
+                    "delete_path": true,
+                    "edit_file": true,
+                    "list_directory": true,
+                    "copy_path": true,
+                    "fetch": true,
+                    "find_path": true,
+                    "grep": true,
+                },
+                "enable_all_context_servers": false,
+                "context_servers": {},
+            },
+            "write": {
+                "default_model": {
+                    "provider": "zed.dev",
+                    "model": "claude-sonnet-4-6",
+                    "enable_thinking": true,
+                    "effort": "high"
+                },
+                "name": "Write",
+                "tools": {
+                    "search_web": true,
+                    "open": true,
+                    "copy_path": true,
+                    "create_directory": true,
+                    "delete_path": true,
+                    "diagnostics": true,
+                    "edit_file": true,
+                    "fetch": true,
+                    "list_directory": true,
+                    "project_notifications": true,
+                    "move_path": true,
+                    "now": true,
+                    "find_path": true,
+                    "read_file": true,
+                    "grep": true,
+                    "terminal": true,
+                    "thinking": true,
+                },
+                "enable_all_context_servers": true,
+                "context_servers": {},
+            },
+        },
         "default_profile": "write",
         "default_model": {
+            "enable_thinking": false,
             "provider": "copilot_chat",
-            "model": "claude-sonnet-4"
+            "model": "gpt-4.1",
         },
-        "always_allow_tool_actions": true,
         "model_parameters": [],
         "inline_assistant_model": {
             "provider": "copilot_chat",
-            "model": "claude-sonnet-4"
-        }
-    },
-    "features": {
-        "edit_prediction_provider": "copilot"
+            "model": "claude-sonnet-4",
+        },
     },
     "edit_predictions": {
-        "mode": "eager"
+        "provider": "copilot",
+        "mode": "eager",
     },
     "base_keymap": "JetBrains",
     "theme": "Gruvbox Dark Hard",
     "inlay_hints": {
         "enabled": true,
-        "show_other_hints": true
+        "show_other_hints": true,
     },
     "terminal": { "button": false },
     "tab_bar": {
-        "show_nav_history_buttons": true
+        "show_nav_history_buttons": true,
     },
     "show_whitespaces": "none",
     "diagnostics": {
@@ -45,49 +112,56 @@
         "include_warnings": true,
         "lsp_pull_diagnostics": {
             "enabled": true,
-            "debounce_ms": 50
+            "debounce_ms": 50,
         },
         "inline": {
             "enabled": true,
             "update_debounce_ms": 150,
             "padding": 4,
             "min_column": 0,
-            "max_severity": null
-        }
+            "max_severity": null,
+        },
     },
     "git": {
         "git_gutter": "tracked_files",
         "gutter_debounce": 500,
         "inline_blame": {
             "enabled": true,
-            "show_commit_summary": true
-        }
+            "show_commit_summary": true,
+        },
     },
     "ui_font_family": "JetBrainsMono Nerd Font Mono",
     "buffer_font_family": "JetBrainsMonoNL Nerd Font Mono",
     "buffer_font_features": {
         "calt": false,
-        "liga": false
+        "liga": false,
     },
     "ui_font_size": 15,
     "buffer_font_size": 13,
     "tabs": {
-        "git_status": true
+        "git_status": true,
     },
     "tab_size": 4,
     "scrollbar": {
         "git_diff": true,
-        "show": "always"
+        "show": "always",
     },
     "languages": {
+        "LaTeX": {
+            "soft_wrap": "editor_width",
+        },
+        "Rust": {
+            "format_on_save": "on",
+            "show_edit_predictions": false,
+        },
         "Zig": {
-            "show_edit_predictions": false
+            "show_edit_predictions": true,
         },
         "SQL": {
-            "formatter": "language_server"
+            "formatter": "language_server",
         },
         "Markdown": {
-            "soft_wrap": "editor_width"
+            "soft_wrap": "editor_width",
         },
         "Python": {
             "format_on_save": "on",
@@ -95,14 +169,30 @@
                 "external": {
                     "command": "black",
                     "arguments": [
-                        "-" // stdin
-                    ]
-                }
-            }
+                        "-", // stdin
+                    ],
+                },
+            },
         },
         "OCaml": {
             "format_on_save": "on",
-            "tab_size": 2
-        }
-    }
+            "tab_size": 2,
+        },
+    },
+    "lsp": {
+        "jdtls": {
+            "settings": {
+                "java_home": "/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home",
+                "lombok_support": true,
+            },
+        },
+        "basedpyright": {
+            "settings": {
+                "analysis": {
+                    "diagnosticMode": "workspace",
+                    "inlayHints.callArgumentNames": false,
+                },
+            },
+        },
+    },
 }

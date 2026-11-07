@@ -1,0 +1,11 @@
+onboarding = false
+
+[keys]
+prefix = "ctrl+space"
+
+previous_tab = "prefix+["
+next_tab = "prefix+]"
+cycle_pane_previous = "prefix+left"
+cycle_pane_next = "prefix+right"
+previous_agent = "prefix+up"
+next_agent = "prefix+down"
