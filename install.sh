@@ -13,6 +13,9 @@ link() {
     return
   fi
   if [ -e "$dest" ] || [ -L "$dest" ]; then
+    if [ -f "$dest" ] && ! cmp -s "$dest" "$src"; then
+      echo "warning: $2 differs from repo copy; old version kept in $2.bak.$stamp"
+    fi
     mv "$dest" "$dest.bak.$stamp"
     echo "backed up $2"
   fi

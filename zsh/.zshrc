@@ -77,12 +77,16 @@ ZSH_THEME="robbyrussell"
 ZSH_NAVIGATOR_KEYBIND_ENABLED=true
 ZSH_NAVIGATOR_STRUCTURE=workspace
 ZSH_NAVIGATOR_MODE=cd
-ZSH_NAVIGATOR_WINDOW_NAMING=true
+ZSH_NAVIGATOR_KEYBIND='^f'
 
 # Load plugins
 plugins=(git zsh-syntax-highlighting fast-syntax-highlighting zsh-autosuggestions zsh-navigator)
 
 source $ZSH/oh-my-zsh.sh
+
+# zsh-navigator binds ^h to `cd $NAVIGATOR_ORIGINAL_PATH` in every mode, but only
+# tmux mode sets that variable, so in cd mode Ctrl+H/Ctrl+Backspace would cd $HOME.
+[[ $ZSH_NAVIGATOR_MODE == cd ]] && bindkey '^h' backward-delete-char
 
 # User configuration
 
@@ -116,11 +120,10 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="/opt/homebrew/opt/ruby@3.0/bin:$PATH"
 export PATH="$HOME/.gem/ruby/3.0.0/bin:$PATH"
 # pnpm
-export PNPM_HOME="/Users/andre/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+export PNPM_HOME="$HOME/Library/pnpm"
+# Always prepend (typeset -U in .zprofile dedupes): a nested login shell has
+# already re-prepended /opt/homebrew/bin, which ships its own older pnpm.
+export PATH="$PNPM_HOME:$PATH"
 # pnpm end
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 eval $(opam env)
@@ -131,7 +134,8 @@ export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
 # akash stuff
 export AKASH_KEY_NAME=dev
 export AKASH_KEYRING_BACKEND=os
-export AKASH_ACCOUNT_ADDRESS="$(provider-services keys show $AKASH_KEY_NAME -a)"
+# Lazy: was a Keychain lookup on every shell start. Run `akash-addr` when needed.
+akash-addr() { export AKASH_ACCOUNT_ADDRESS="$(provider-services keys show $AKASH_KEY_NAME -a)"; }
 export AKASH_NET="https://raw.githubusercontent.com/akash-network/net/main/mainnet"
 export AKASH_VERSION="v0.3.2-rc7"
 export AKASH_CHAIN_ID="sandbox-01"
@@ -139,7 +143,6 @@ export AKASH_NODE="https://rpc.sandbox-01.aksh.pw:443"
 export AKASH_GAS=auto
 export AKASH_GAS_ADJUSTMENT=1.25
 export AKASH_GAS_PRICES=0.025uakt
-export PATH="/usr/local/bin/provider-services:$PATH"
 export AKASH_SIGN_MODE=amino-json
 
 # The next line updates PATH for the Google Cloud SDK.
