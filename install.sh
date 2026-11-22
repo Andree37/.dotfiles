@@ -28,4 +28,5 @@ link zsh/.zprofile .zprofile
 link starship.toml .config/starship.toml
 link tmux/tmux.conf .config/tmux/tmux.conf
 link zed/settings.json .config/zed/settings.json
-link herdr/config.toml .config/herdr/config.toml
+
+# herdr (config, scripts, plugins, tools) lives in github.com/Andree37/herdr-setup.

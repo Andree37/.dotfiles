@@ -9,7 +9,6 @@ Shell, prompt, terminal multiplexer and editor config for macOS (Apple Silicon).
 | `starship.toml` | `~/.config/starship.toml` |
 | `tmux/tmux.conf` | `~/.config/tmux/tmux.conf` |
 | `zed/settings.json` | `~/.config/zed/settings.json` |
-| `herdr/config.toml` | `~/.config/herdr/config.toml` |
 | `nvim/` | not linked by `install.sh` (see step 6) |
 
 ## Setting up a new Mac
@@ -54,7 +53,6 @@ Then:
 ```sh
 mkdir -p ~/.nvm && source /opt/homebrew/opt/nvm/nvm.sh && nvm install 22
 opam init                                         # .zshrc runs `opam env`
-curl -fsSL https://herdr.dev/install.sh | sh      # herdr, installs to ~/.local/bin
 ```
 
 ### 4. oh-my-zsh and plugins
@@ -91,7 +89,17 @@ existing `~/.config/nvim`. On a fresh machine:
 ln -s ~/github/Andree37/.dotfiles/nvim ~/.config/nvim
 ```
 
-### 7. Open a new terminal
+### 7. herdr
+
+herdr, its config, scripts, plugins and tools live in their own repo,
+[herdr-setup](https://github.com/Andree37/herdr-setup), with its own installer:
+
+```sh
+git clone --recursive https://github.com/Andree37/herdr-setup.git ~/github/Andree37/herdr-setup
+~/github/Andree37/herdr-setup/install.sh
+```
+
+### 8. Open a new terminal
 
 Open Ghostty (or quit and reopen your terminal) so the login shell loads
 `.zprofile` and `.zshrc`. Check it worked:
